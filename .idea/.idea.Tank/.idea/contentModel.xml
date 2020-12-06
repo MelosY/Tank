@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\31311\.Rider2017.3\system\resharper-host\local\Transient\ReSharperHost\v11\SolutionCaches\_Tank.929275175.00" t="ExcludeRecursive" />
+    <e p="C:\Users\31311\Desktop\组织学习\冰岩\项目夹\tank\工程源码\tank" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Plugins" t="Include">
+          <e p="Editor" t="Include">
+            <e p="JetBrains" t="Include">
+              <e p="Unity3DRider.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Barriar.cs" t="Include" />
+          <e p="Born.cs" t="Include" />
+          <e p="Bullect.cs" t="Include" />
+          <e p="Enemy.cs" t="Include" />
+          <e p="Explosion.cs" t="Include" />
+          <e p="Heart.cs" t="Include" />
+          <e p="MapCreation.cs" t="Include" />
+          <e p="Option.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="PlayerManager.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Tank.sln" t="IncludeFlat" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
