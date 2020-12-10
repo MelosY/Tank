@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour {
     //属性值
     public int lifeValue = 3;
     public int playerScore = 0;
-    public bool isDead;
+    public int isDead;
     public bool isDefeat;
 
 
@@ -53,15 +53,20 @@ public class PlayerManager : MonoBehaviour {
             Invoke("ReturnToTheMainMenu", 3);
             return;
         }
-        if (isDead)
+        if (isDead==1)
         {
-            Recover();
+            Recover1();
         }
+        else if (isDead == 2)
+        {
+            Recover2();
+        }
+
         playerScoreText.text = playerScore.ToString();
         PlayerLifeValueText.text = lifeValue.ToString();
 	}
 
-    private void Recover()
+    private void Recover1()
     {
         if (lifeValue<=0)
         {
@@ -73,8 +78,24 @@ public class PlayerManager : MonoBehaviour {
         {
             lifeValue--;
             GameObject go = Instantiate(born, new Vector3(-2, -8, 0), Quaternion.identity);
-            go.GetComponent<Born>().createPlayer = true;
-            isDead = false;
+            go.GetComponent<Born>().createPlayer = 1;
+            isDead = 0;
+        }
+    }
+    private void Recover2()
+    {
+        if (lifeValue <= 0)
+        {
+            //游戏失败，返回主界面
+            isDefeat = true;
+            Invoke("ReturnToTheMainMenu", 3);
+        }
+        else
+        {
+            lifeValue--;
+            GameObject go = Instantiate(born, new Vector3(-2, 8, 0), Quaternion.identity);
+            go.GetComponent<Born>().createPlayer = 2;
+            isDead = 0;
         }
     }
 

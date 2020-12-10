@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Bullect.cs" />
     <Compile Include="Assets\Scripts\Barriar.cs" />
+    <Compile Include="Assets\Scripts\Player1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

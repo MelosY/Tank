@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player1 : MonoBehaviour {
 
     //属性值
     public float moveSpeed=3;
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour {
     //坦克的攻击方法
     private void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
 
             //子弹产生的角度：当前坦克的角度+子弹应该旋转的角度。
@@ -86,7 +86,8 @@ public class Player : MonoBehaviour {
     //坦克的移动方法
     private void Move()
     {
-        float v = Input.GetAxisRaw("Vertical2");
+        //Input.GetKey(KeyCode.W)
+        float v = Input.GetAxisRaw("Vertical1");
 
 
         transform.Translate(Vector3.up * v * moveSpeed * Time.fixedDeltaTime, Space.World);
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour {
             return;
         }
 
-        float h = Input.GetAxisRaw("Horizontal2");
+        float h = Input.GetAxisRaw("Horizontal1");
         transform.Translate(Vector3.right * h * moveSpeed * Time.fixedDeltaTime, Space.World);
         if (h < 0)
         {
@@ -160,7 +161,7 @@ public class Player : MonoBehaviour {
             return;
         }
 
-        PlayerManager.Instance.isDead = 1;
+        PlayerManager.Instance.isDead = 2;
 
         //产生爆炸特效
         Instantiate(explosionPrefab, transform.position, transform.rotation);

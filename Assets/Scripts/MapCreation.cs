@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MapCreation : MonoBehaviour {
 
 
@@ -11,10 +11,30 @@ public class MapCreation : MonoBehaviour {
 
     //已经有东西的位置列表
     private List<Vector3> itemPositionList = new List<Vector3>();
+    Scene scene;
 
 
-    private void Awake()
+
+
+private void Awake()
     {
+        scene = SceneManager.GetActiveScene();
+        Debug.Log("当前场景: " + scene.name);
+        if(scene.name =="Game1")
+        {
+            
+            //实例化老家
+            CreateItem(item[0], new Vector3(0, 8, 0), Quaternion.identity);
+            //用墙把老家围起来
+            CreateItem(item[1], new Vector3(-1, 8, 0), Quaternion.identity);
+            CreateItem(item[1], new Vector3(1, 8, 0), Quaternion.identity);
+            for (int i = -1; i < 2; i++)
+            {
+                CreateItem(item[1], new Vector3(i, 7, 0), Quaternion.identity);
+            }
+            GameObject go1 = Instantiate(item[3], new Vector3(-2, 8, 0), Quaternion.identity);
+            go1.GetComponent<Born>().createPlayer = 2;
+        }
         InitMap();
     }
 
@@ -49,14 +69,18 @@ public class MapCreation : MonoBehaviour {
 
         //初始化玩家
         GameObject go = Instantiate(item[3], new Vector3(-2, -8, 0), Quaternion.identity);
-        go.GetComponent<Born>().createPlayer = true;
+        go.GetComponent<Born>().createPlayer = 1;
 
         //产生敌人
-        CreateItem(item[3], new Vector3(-10, 8, 0), Quaternion.identity);
-        CreateItem(item[3], new Vector3(0, 8, 0), Quaternion.identity);
-        CreateItem(item[3], new Vector3(10, 8, 0), Quaternion.identity);
+        if(scene.name == "Game")
+        {
+            CreateItem(item[3], new Vector3(-10, 8, 0), Quaternion.identity);
+            CreateItem(item[3], new Vector3(0, 8, 0), Quaternion.identity);
+            CreateItem(item[3], new Vector3(10, 8, 0), Quaternion.identity);
 
-        InvokeRepeating("CreateEnemy", 4, 5);
+            InvokeRepeating("CreateEnemy", 4, 5);
+        }
+
 
 
         //实例化地图

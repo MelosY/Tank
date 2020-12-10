@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Born : MonoBehaviour {
 
-    public GameObject playerPrefab;
+    public GameObject[] playerPrefab;
 
     public GameObject[] enemyPrefabList;
 
-    public bool createPlayer;
+    public int createPlayer;
 
 	// Use this for initialization
 	void Start () {
@@ -23,9 +23,14 @@ public class Born : MonoBehaviour {
 
     private void BornTank()
     {
-        if (createPlayer)
+        if (createPlayer == 1)
         {
-            Instantiate(playerPrefab, transform.position, Quaternion.identity);
+            Instantiate(playerPrefab[0], transform.position, Quaternion.identity);
+
+        }
+        else if(createPlayer == 2)
+        {
+            Instantiate(playerPrefab[1], transform.position, Quaternion.identity);
         }
         else
         {

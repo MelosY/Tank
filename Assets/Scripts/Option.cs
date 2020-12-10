@@ -30,5 +30,9 @@ public class Option : MonoBehaviour {
         {
             SceneManager.LoadScene(1);
         }
-	}
+        if (choice == 2 && Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
 }
