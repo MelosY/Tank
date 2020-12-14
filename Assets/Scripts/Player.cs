@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
     //属性值
     //坦克的移动速度
-    public float moveSpeed=10;
+    public float moveSpeed=10;  //让坦克跑的再快一点!
     //炮弹的初始角度
     private Vector3 bullectEulerAngles;
     //时间间隔
@@ -26,9 +26,9 @@ public class Player : MonoBehaviour {
     public GameObject explosionPrefab;
     //无敌特效预制体
     public GameObject defendEffectPrefab;
-    //移动声音
+    //移动声音预制体
     public AudioSource moveAudio;
-    //炮弹声音
+    //坦克移动声音预制体
     public AudioClip[] tankAudio;
 
     private void Awake()
@@ -100,56 +100,78 @@ public class Player : MonoBehaviour {
     //坦克的移动方法
     private void Move()
     {
-        //获取输入，这里的“Vertical2”在项目的Project Settings里面进行了预设
+        //获取输入，这里的“Vertical2”在项目的Project Settings里面进行了预设，限定为上下方向键
         float v = Input.GetAxisRaw("Vertical2");
         
         transform.Translate(Vector3.up * v * moveSpeed * Time.fixedDeltaTime, Space.World);
-        //
+        
+        //根据获取的输入v判断按下了方向下
         if (v < 0)
         {
             sr.sprite = tankSprite[2];
             bullectEulerAngles = new Vector3(0, 0, -180);
         }
 
+        //获取的输入v语义为按下了方向上
         else if (v > 0)
         {
+            //修改坦克的朝向
             sr.sprite = tankSprite[0];
+            //修改炮弹的飞行角度等
             bullectEulerAngles = new Vector3(0, 0, 0);
         }
 
+        //如果坦克移动的距离大于一定幅度，就播放一段移动的音频
         if (Mathf.Abs(v)>0.05f)
         {
+            //将声音预制体的属性设定为特定的坦克声音预制体
             moveAudio.clip = tankAudio[1];
             
+            //检查是否正在播放音频，免除重复Play()的bug
             if (!moveAudio.isPlaying)
             {
+                //播放坦克移动的声音
                 moveAudio.Play();
             }
         }
-
+        
+        //如果已经判定按下了上/下光标键，就不再判断是否按下其他光标键
         if (v != 0)
         {
+            //直接返回
             return;
         }
 
+        //与上述相同，判断是否按下左/右光标键
         float h = Input.GetAxisRaw("Horizontal2");
+        
         transform.Translate(Vector3.right * h * moveSpeed * Time.fixedDeltaTime, Space.World);
+        
+        //语义为按下了方向左
         if (h < 0)
         {
+            //调整坦克的朝向 
             sr.sprite = tankSprite[3];
+            //修改炮弹的飞行角度
             bullectEulerAngles = new Vector3(0, 0, 90);
         }
 
+        //语义为按下了方向右
         else if (h > 0)
         {
+            //调整坦克的朝向
             sr.sprite = tankSprite[1];
+            //修改炮弹的飞行角度等
             bullectEulerAngles = new Vector3(0, 0, -90);
         }
 
+        //如果坦克移动的距离大于一定幅度，就播放一段移动的音频
         if (Mathf.Abs(h) > 0.05f)
         {
+            //将声音预制体的属性设定为特定的坦克声音预制体
             moveAudio.clip = tankAudio[1];
 
+            //检查是否正在播放音频，免除重复Play()的bug
             if (!moveAudio.isPlaying)
             {
                 moveAudio.Play();
@@ -157,8 +179,10 @@ public class Player : MonoBehaviour {
         }
         else
         {
+            //如果没有按下任何光标键移动的话，就原地停车，调整到停车的音频播放
             moveAudio.clip = tankAudio[0];
 
+            //检查是否正在播放音频，免除重复Play()的bug
             if (!moveAudio.isPlaying)
             {
                 moveAudio.Play();
@@ -180,7 +204,10 @@ public class Player : MonoBehaviour {
 
         //产生爆炸特效
         Instantiate(explosionPrefab, transform.position, transform.rotation);
+        
         //死亡
         Destroy(gameObject);
     }
+
+
 }
