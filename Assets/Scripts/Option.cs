@@ -20,7 +20,7 @@ public class Option : MonoBehaviour {
     // Use this for initialization
     void Start () 
     {
-		//nothing to do
+		//nothing to be done
 	}
 	
 	// Update is called once per frame
