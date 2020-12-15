@@ -1,6 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*************************
+* 每个玩家都有一个heart
+* 当heart被敌方击中时即为失败
+*************************/
+
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Heart : MonoBehaviour {
 
@@ -11,11 +16,10 @@ public class Heart : MonoBehaviour {
     public Sprite BrokenSprite;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         sr = GetComponent<SpriteRenderer>();
 	}
-	
-	
 
 
     public void Die()
