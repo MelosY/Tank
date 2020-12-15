@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullect : MonoBehaviour {
-
+    
+    //子弹移动速度
     public float moveSpeed = 10;
-
+    //判别是谁的子弹
     public bool isPlayerBullect;
 
 
-	// Use this for initialization
+	
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
+
+	//子弹每秒移动
 	void Update () {
         transform.Translate(transform.up * moveSpeed * Time.deltaTime, Space.World);
 	}
 
-
+    //判断碰到了谁
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //碰撞的标签
         switch (collision.tag)
         {
+            //给碰撞的物体死亡信息
             case "Tank":
                 if (!isPlayerBullect)
                 {
@@ -43,6 +47,7 @@ public class Bullect : MonoBehaviour {
                 }
                 
                 break;
+            //墙壁则摧毁
             case "Wall":
                 Destroy(collision.gameObject);
                 Destroy(gameObject);

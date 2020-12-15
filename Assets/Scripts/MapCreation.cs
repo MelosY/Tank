@@ -15,11 +15,12 @@ public class MapCreation : MonoBehaviour {
 
 
 
-
+//初始生成
 private void Awake()
     {
         scene = SceneManager.GetActiveScene();
         Debug.Log("当前场景: " + scene.name);
+        //如果是双人对战，则生成第二个heart等
         if(scene.name =="Game1")
         {
             
@@ -28,16 +29,19 @@ private void Awake()
             //用墙把老家围起来
             CreateItem(item[1], new Vector3(-1, 8, 0), Quaternion.identity);
             CreateItem(item[1], new Vector3(1, 8, 0), Quaternion.identity);
+           
             for (int i = -1; i < 2; i++)
             {
                 CreateItem(item[1], new Vector3(i, 7, 0), Quaternion.identity);
             }
+            //生成玩家2
             GameObject go1 = Instantiate(item[3], new Vector3(-2, 8, 0), Quaternion.identity);
             go1.GetComponent<Born>().createPlayer = 2;
         }
         InitMap();
     }
-
+    
+    //随机生成地图
     private void InitMap()
     {
         //实例化老家
@@ -49,7 +53,8 @@ private void Awake()
         {
             CreateItem(item[1], new Vector3(i, -7, 0), Quaternion.identity);
         }
-        //实例化外围墙
+
+        //生成实例化外围墙，也即周围的一圈空气墙
         for (int i = -11; i < 12; i++)
         {
             CreateItem(item[6], new Vector3(i, 9, 0), Quaternion.identity);
@@ -83,29 +88,37 @@ private void Awake()
 
 
 
-        //实例化地图
+        //随机生成实例化地图
         for (int i = 0; i < 60; i++)
         {
+            //生成可被摧毁墙
             CreateItem(item[1], CreateRandomPosition(), Quaternion.identity);
         }
         for (int i = 0; i < 20; i++)
         {
+            //生成河
             CreateItem(item[2], CreateRandomPosition(), Quaternion.identity);
         }
         for (int i = 0; i < 20; i++)
         {
+            //生成刚墙
             CreateItem(item[4], CreateRandomPosition(), Quaternion.identity);
         }
         for (int i = 0; i < 20; i++)
         {
+            //生成草
             CreateItem(item[5], CreateRandomPosition(), Quaternion.identity);
         }
     }
-
+    
+    //私有方法，生成在对应位置，对应角度的对应物体。
     private void CreateItem(GameObject createCameObject,Vector3 createPosition,Quaternion createRotation)
     {
+        //生成物体
         GameObject itemGo = Instantiate(createCameObject, createPosition, createRotation);
+        //设置父物体
         itemGo.transform.SetParent(gameObject.transform);
+        //添加该位置
         itemPositionList.Add(createPosition);
 
     }
@@ -126,7 +139,6 @@ private void Awake()
     }
 
     //用来判断位置列表中是否有这个位置
-
     private bool HasThePosition(Vector3 createPos)
     {
         for (int i = 0; i < itemPositionList.Count; i++)
@@ -144,6 +156,7 @@ private void Awake()
     {
         int num = Random.Range(0, 3);
         Vector3 EnemyPos = new Vector3();
+        //判断现在该生成的位置
         if (num==0)
         {
             EnemyPos = new Vector3(-10, 8, 0);
